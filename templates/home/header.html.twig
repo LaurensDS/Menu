@@ -1,0 +1,45 @@
+<header class="header-section clearfix">
+	
+	<div class="header-right">
+		<div class="user-panel">
+			{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a href="{{path('app_login')}}" class="register">Login</a>
+				<a href="{{path('app_register')}}" class="register">Register</a>
+
+			{% endif %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a href="{{path('app_logout')}}" class="register">Logout</a>
+			{% endif %}
+		</div>
+	</div>
+	<ul class="main-menu">
+		<li>
+			<a href="{{path('home')}}">Home</a>
+		</li>
+		<li>
+			<a href="{{path('menu')}}">Menu</a>
+		</li>
+		<li>
+			<a href="{{path('orders')}}">Orders</a>
+		</li>
+		<li>
+			<a href="{{path('mail')}}">Contact</a>
+		</li>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<li>
+				<a href="#">Employee</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="{{path('dish_index')}}">Dish</a>
+					</li>
+					<li>
+						<a href="{{path('dish_new')}}">Create</a>
+					</li>
+					<li>
+						<a href="{{path('orders')}}">Orders</a>
+					</li>
+				</ul>
+			</li>
+		{% endif %}
+	</ul>
+</header>

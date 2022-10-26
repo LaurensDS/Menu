@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+	{% for message in app.flashes('order') %}
+		<div class="alert alert-success">
+			<h3>
+				{{ message }}</h3>
+		</div>
+	{% endfor %}
+
+	<section class="playlist-section spad">
+		<div class="container-fluid">
+			<div class="section-title">
+				<h2>Menu</h2>
+			</div>
+			<div class="container">
+				<ul class="playlist-filter controls">
+					<li class="control" data-filter=".drink">drinks</li>
+					<li class="control" data-filter=".apetizer">appetizers</li>
+					<li class="control" data-filter=".maindish">main dish</li>
+					<li class="control" data-filter=".dessert">dessert</li>
+					<li class="control" data-filter="all">All dishes</li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+			<div class="row playlist-area">
+				{% for dish in dishes %}
+					<div class="mix col-lg-3 col-md-4 col-sm-6 {{dish.category}}">
+						<div class="playlist-item">
+							<img src="{{asset('uploads/images/' ~ dish.image)}}">
+							<h5>{{dish.description}}
+								- EUR
+								{{dish.price}}</h5>
+							<p>OrderNr.
+								{{dish.id}}
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tableModal{{dish.id}}">
+							Order
+							</button>
+							</p>
+						</div>
+					</div>
+					<!-- Button trigger modal -->
+
+					<!-- Modal -->
+					<div class="modal fade" id="tableModal{{dish.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="tableSelection">Select your table</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<a class="btn btn-outline-danger btn-sm" href="{{ path('order',{id: dish.id, table: 1} )}}" role="button"><i class="fa-solid fa-receipt"></i> Table 1</a>
+								<a class="btn btn-outline-danger btn-sm" href="{{ path('order',{id: dish.id, table: 2} )}}" role="button"><i class="fa-solid fa-receipt"></i> Table 2</a>
+								<a class="btn btn-outline-danger btn-sm" href="{{ path('order',{id: dish.id, table: 3} )}}" role="button"><i class="fa-solid fa-receipt"></i> Table 3</a>
+								<a class="btn btn-outline-danger btn-sm" href="{{ path('order',{id: dish.id, table: 4} )}}" role="button"><i class="fa-solid fa-receipt"></i> Table 4</a>
+								<a class="btn btn-outline-danger btn-sm" href="{{ path('order',{id: dish.id, table: 5} )}}" role="button"><i class="fa-solid fa-receipt"></i> Table 5</a>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock %}
